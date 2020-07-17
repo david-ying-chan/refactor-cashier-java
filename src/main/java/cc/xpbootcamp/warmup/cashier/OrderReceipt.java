@@ -1,5 +1,10 @@
 package cc.xpbootcamp.warmup.cashier;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * OrderReceipt prints the details of order including customer name, address, description, quantity,
  * price and amount. It also calculates the sales tax @ 10% and prints as part
@@ -19,7 +24,7 @@ public class OrderReceipt {
 
         output.append(getReceiptHeader());
 
-        output.append(getReceiptOverallInfo());
+        output.append(getReceiptDateInfo());
 
         for (LineItem lineItem : order.getLineItems()) {
             output.append(getReceiptLineItem(lineItem));
@@ -34,12 +39,16 @@ public class OrderReceipt {
         return "==== 老王超市，值得信赖 ====\n";
     }
 
-    private String getReceiptOverallInfo() {
-        StringBuilder overallInfo = new StringBuilder();
-        overallInfo.append(order.getCustomerName());
-        overallInfo.append(order.getCustomerAddress());
+    private String getReceiptDateInfo() {
+        StringBuilder dateInfo = new StringBuilder();
 
-        return overallInfo.toString();
+        LocalDate date = order.getDate();
+
+        dateInfo.append(date.format(DateTimeFormatter.ofPattern("yyyy年MM月dd日")));
+        dateInfo.append('，');
+        dateInfo.append(getDayOfWeekDescription(date));
+
+        return dateInfo.toString();
     }
 
     private String getReceiptLineItem(LineItem lineItem) {
@@ -87,5 +96,20 @@ public class OrderReceipt {
         }
 
         return totalOrderAmount;
+    }
+
+    private String getDayOfWeekDescription(LocalDate date) {
+        String dayOfWeek = String.valueOf(date.getDayOfWeek());
+
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("MONDAY", "星期一");
+        map.put("TUESDAY", "星期二");
+        map.put("WEDNESDAY", "星期三");
+        map.put("THURSDAY", "星期四");
+        map.put("FRIDAY", "星期五");
+        map.put("SATURDAY", "星期六");
+        map.put("SUNDAY", "星期日");
+
+        return map.get(dayOfWeek);
     }
 }
