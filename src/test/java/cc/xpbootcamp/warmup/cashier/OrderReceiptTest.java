@@ -11,6 +11,16 @@ import static org.hamcrest.Matchers.containsString;
 
 class OrderReceiptTest {
     @Test
+    public void shouldPrintHeaderInformation() {
+        List<LineItem> lineItems = new ArrayList<LineItem>();
+        OrderReceipt receipt = new OrderReceipt(new Order(null, null, null, lineItems));
+
+        String output = receipt.printReceipt();
+
+        assertThat(output, containsString("==== 老王超市，值得信赖 ===="));
+    }
+
+    @Test
     void shouldPrintDateInformationOnOrder() {
         Order order = new Order(null, null, LocalDate.of(2020, 2, 17), new ArrayList<LineItem>());
         OrderReceipt receipt = new OrderReceipt(order);
@@ -36,15 +46,5 @@ class OrderReceiptTest {
         assertThat(output, containsString("chocolate, 20.0 * 1, 20.0\n"));
         assertThat(output, containsString("税额： 6.5"));
         assertThat(output, containsString("总价： 71.5"));
-    }
-
-    @Test
-    public void shouldPrintHeaderInformation() {
-        List<LineItem> lineItems = new ArrayList<LineItem>();
-        OrderReceipt receipt = new OrderReceipt(new Order(null, null, null, lineItems));
-
-        String output = receipt.printReceipt();
-
-        assertThat(output, containsString("==== 老王超市，值得信赖 ===="));
     }
 }

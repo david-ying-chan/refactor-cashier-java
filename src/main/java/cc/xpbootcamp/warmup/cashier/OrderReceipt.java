@@ -1,5 +1,6 @@
 package cc.xpbootcamp.warmup.cashier;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -99,17 +100,15 @@ public class OrderReceipt {
     }
 
     private String getDayOfWeekDescription(LocalDate date) {
-        String dayOfWeek = String.valueOf(date.getDayOfWeek());
+        Map<DayOfWeek, String> map = new HashMap<DayOfWeek, String>();
+        map.put(DayOfWeek.MONDAY, "星期一");
+        map.put(DayOfWeek.TUESDAY, "星期二");
+        map.put(DayOfWeek.WEDNESDAY, "星期三");
+        map.put(DayOfWeek.THURSDAY, "星期四");
+        map.put(DayOfWeek.FRIDAY, "星期五");
+        map.put(DayOfWeek.SATURDAY, "星期六");
+        map.put(DayOfWeek.SUNDAY, "星期日");
 
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("MONDAY", "星期一");
-        map.put("TUESDAY", "星期二");
-        map.put("WEDNESDAY", "星期三");
-        map.put("THURSDAY", "星期四");
-        map.put("FRIDAY", "星期五");
-        map.put("SATURDAY", "星期六");
-        map.put("SUNDAY", "星期日");
-
-        return map.get(dayOfWeek);
+        return map.get(date.getDayOfWeek());
     }
 }
