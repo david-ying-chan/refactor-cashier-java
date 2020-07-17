@@ -39,4 +39,13 @@ class OrderReceiptTest {
         assertThat(output, containsString("Total Amount\t71.5"));
     }
 
+    @Test
+    public void shouldPrintHeaderInformation() {
+        List<LineItem> lineItems = new ArrayList<LineItem>();
+        OrderReceipt receipt = new OrderReceipt(new Order(null, null, lineItems));
+
+        String output = receipt.printReceipt();
+
+        assertThat(output, containsString("==== 老王超市，值得信赖 ===="));
+    }
 }

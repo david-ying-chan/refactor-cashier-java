@@ -31,7 +31,7 @@ public class OrderReceipt {
     }
 
     private String getReceiptHeader() {
-        return "======Printing Orders======\n";
+        return "==== 老王超市，值得信赖 ====\n";
     }
 
     private String getReceiptOverallInfo() {
