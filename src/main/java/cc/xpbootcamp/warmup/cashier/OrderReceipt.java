@@ -25,11 +25,8 @@ public class OrderReceipt {
             output.append(getReceiptLineItem(lineItem));
         }
 
-        // prints the state tax
-        output.append("Sales Tax").append('\t').append(calculateTotalSalesTax(order));
+        output.append(getReceiptOrderCalculation(order));
 
-        // print total amount
-        output.append("Total Amount").append('\t').append(calculateTotalOrderAmount(order));
         return output.toString();
     }
 
@@ -56,6 +53,18 @@ public class OrderReceipt {
         output.append('\t');
         output.append(lineItem.totalAmount());
         output.append('\n');
+
+        return output.toString();
+    }
+
+    private String getReceiptOrderCalculation(Order order) {
+        StringBuilder output = new StringBuilder();
+
+        // prints the state tax
+        output.append("Sales Tax").append('\t').append(calculateTotalSalesTax(order));
+
+        // print total amount
+        output.append("Total Amount").append('\t').append(calculateTotalOrderAmount(order));
 
         return output.toString();
     }
