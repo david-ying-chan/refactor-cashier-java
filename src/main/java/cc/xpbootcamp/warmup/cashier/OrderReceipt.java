@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * OrderReceipt prints the details of order including customer name, address, description, quantity,
@@ -41,10 +42,12 @@ public class OrderReceipt {
     }
 
     private String getReceiptDateInfo() {
-        StringBuilder dateInfo = new StringBuilder();
-
         LocalDate date = order.getDate();
+        if (Objects.isNull(date)) {
+            return null;
+        }
 
+        StringBuilder dateInfo = new StringBuilder();
         dateInfo.append(date.format(DateTimeFormatter.ofPattern("yyyy年MM月dd日")));
         dateInfo.append('，');
         dateInfo.append(getDayOfWeekDescription(date));
