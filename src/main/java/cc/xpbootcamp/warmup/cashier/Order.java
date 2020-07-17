@@ -29,4 +29,24 @@ public class Order {
     public List<LineItem> getLineItems() {
         return lineItemList;
     }
+
+    public double calculateTotalSalesTax() {
+        double totalSalesTax = 0d;
+        for (LineItem lineItem : lineItemList) {
+            double salesTax = lineItem.totalAmount() * .10;
+            totalSalesTax += salesTax;
+        }
+
+        return  totalSalesTax;
+    }
+
+    public double calculateTotalOrderAmount() {
+        double totalOrderAmount = 0d;
+        for (LineItem lineItem : getLineItems()) {
+            double salesTax = lineItem.totalAmount() * .10;
+            totalOrderAmount += lineItem.totalAmount() + salesTax;
+        }
+
+        return totalOrderAmount;
+    }
 }

@@ -74,32 +74,12 @@ public class OrderReceipt {
         StringBuilder output = new StringBuilder();
 
         // prints the state tax
-        output.append("税额").append("： ").append(calculateTotalSalesTax(order));
+        output.append("税额").append("： ").append(order.calculateTotalSalesTax());
 
         // print total amount
-        output.append("总价").append("： ").append(calculateTotalOrderAmount(order));
+        output.append("总价").append("： ").append(order.calculateTotalOrderAmount());
 
         return output.toString();
-    }
-
-    private double calculateTotalSalesTax(Order order) {
-        double totalSalesTax = 0d;
-        for (LineItem lineItem : order.getLineItems()) {
-            double salesTax = lineItem.totalAmount() * .10;
-            totalSalesTax += salesTax;
-        }
-
-        return  totalSalesTax;
-    }
-
-    private double calculateTotalOrderAmount(Order order) {
-        double totalOrderAmount = 0d;
-        for (LineItem lineItem : order.getLineItems()) {
-            double salesTax = lineItem.totalAmount() * .10;
-            totalOrderAmount += lineItem.totalAmount() + salesTax;
-        }
-
-        return totalOrderAmount;
     }
 
     private String getDayOfWeekDescription(LocalDate date) {
