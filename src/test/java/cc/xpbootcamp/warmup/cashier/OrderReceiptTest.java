@@ -44,7 +44,26 @@ class OrderReceiptTest {
         assertThat(output, containsString("milk, 10.0 * 2, 20.0\n"));
         assertThat(output, containsString("biscuits, 5.0 * 5, 25.0\n"));
         assertThat(output, containsString("chocolate, 20.0 * 1, 20.0\n"));
-        assertThat(output, containsString("税额： 6.5"));
-        assertThat(output, containsString("总价： 71.5"));
+        assertThat(output, containsString("税额： 6.5\n"));
+        assertThat(output, containsString("总价： 71.5\n"));
+    }
+
+    @Test
+    public void shouldPrintLineItemAndSalesTaxInformationWithDiscountWhenWednesday() {
+        List<LineItem> lineItems = new ArrayList<LineItem>() {{
+            add(new LineItem("milk", 10.0, 2));
+            add(new LineItem("biscuits", 5.0, 5));
+            add(new LineItem("chocolate", 20.0, 1));
+        }};
+        OrderReceipt receipt = new OrderReceipt(new Order(null, null, LocalDate.of(2020, 2, 19), lineItems));
+
+        String output = receipt.printReceipt();
+
+        assertThat(output, containsString("milk, 10.0 * 2, 20.0\n"));
+        assertThat(output, containsString("biscuits, 5.0 * 5, 25.0\n"));
+        assertThat(output, containsString("chocolate, 20.0 * 1, 20.0\n"));
+        assertThat(output, containsString("税额： 6.5\n"));
+        assertThat(output, containsString("折扣： 1.43\n"));
+        assertThat(output, containsString("总价： 70.07\n"));
     }
 }

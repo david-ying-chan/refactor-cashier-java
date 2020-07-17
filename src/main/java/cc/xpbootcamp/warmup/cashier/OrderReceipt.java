@@ -73,11 +73,13 @@ public class OrderReceipt {
     private String getReceiptOrderCalculation(Order order) {
         StringBuilder output = new StringBuilder();
 
-        // prints the state tax
-        output.append("税额").append("： ").append(order.calculateTotalSalesTax());
+        output.append("税额").append("： ").append(order.calculateTotalSalesTax()).append('\n');
 
-        // print total amount
-        output.append("总价").append("： ").append(order.calculateTotalOrderAmount());
+        if (order.hasDiscount()) {
+            output.append("折扣").append("： ").append(order.calculateDiscount()).append('\n');
+        }
+
+        output.append("总价").append("： ").append(order.calculateTotalOrderAmount()).append('\n');
 
         return output.toString();
     }

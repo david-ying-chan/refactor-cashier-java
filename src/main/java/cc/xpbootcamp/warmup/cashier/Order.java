@@ -1,7 +1,9 @@
 package cc.xpbootcamp.warmup.cashier;
 
+import java.time.DayOfWeek;
 import java.util.List;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Order {
     String cName;
@@ -47,6 +49,28 @@ public class Order {
             totalOrderAmount += lineItem.totalAmount() + salesTax;
         }
 
+        if (hasDiscount()) {
+            totalOrderAmount = totalOrderAmount * 98 / 100;
+        }
+
         return totalOrderAmount;
+    }
+
+    public double calculateDiscount() {
+        double totalOrderAmount = 0d;
+        for (LineItem lineItem : getLineItems()) {
+            double salesTax = lineItem.totalAmount() * .10;
+            totalOrderAmount += lineItem.totalAmount() + salesTax;
+        }
+
+        return totalOrderAmount * (100 - 98) / 100;
+    }
+
+    public boolean hasDiscount() {
+        if (Objects.isNull(date)) {
+            return false;
+        }
+
+        return date.getDayOfWeek() == DayOfWeek.WEDNESDAY;
     }
 }
