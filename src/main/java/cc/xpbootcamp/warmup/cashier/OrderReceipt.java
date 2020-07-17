@@ -46,11 +46,11 @@ public class OrderReceipt {
         StringBuilder output = new StringBuilder();
 
         output.append(lineItem.getDescription());
-        output.append('\t');
+        output.append(", ");
         output.append(lineItem.getPrice());
-        output.append('\t');
+        output.append(" * ");
         output.append(lineItem.getQuantity());
-        output.append('\t');
+        output.append(", ");
         output.append(lineItem.totalAmount());
         output.append('\n');
 
@@ -61,10 +61,10 @@ public class OrderReceipt {
         StringBuilder output = new StringBuilder();
 
         // prints the state tax
-        output.append("Sales Tax").append('\t').append(calculateTotalSalesTax(order));
+        output.append("税额").append("： ").append(calculateTotalSalesTax(order));
 
         // print total amount
-        output.append("Total Amount").append('\t').append(calculateTotalOrderAmount(order));
+        output.append("总价").append("： ").append(calculateTotalOrderAmount(order));
 
         return output.toString();
     }
